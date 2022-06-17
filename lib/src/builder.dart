@@ -76,6 +76,27 @@ class _RecursiveBuildResult {
 _RecursiveBuildResult _buildShellRecursive(
     BuildContext context, RouteMatch routeMatch, int i, VoidCallback pop) {
   final parent = routeMatch.routes[i] as r.ShellRoute;
+    
+      final preserveState = parent.preserveState;
+
+  if (preserveState) {
+    // Build the children immediately and place the non-matching children in an
+    // Offstage widget.
+    List<Widget> children;
+    for (var childRoute in parent.children) {
+      // final newRouteMatch =
+      final child = _buildSwitcherChild(i, routeMatch, context, pop, parent);
+      print('child: $child');
+    }
+  }
+
+  return _buildSwitcherChild(i, routeMatch, context, pop, parent);
+}
+
+_RecursiveBuildResult _buildSwitcherChild(int i, RouteMatch routeMatch,
+    BuildContext context, VoidCallback pop, r.SwitcherRoute parent) {
+    
+    
   late final r.RouteBase? child;
 
   if (i + 1 < routeMatch.routes.length) {
@@ -144,6 +165,14 @@ Widget _wrapWithRouteStateScope(
   }
   return RouteStateScope(
     state: RouteState(route, globalState),
+    child: child,
+  );
+}
+
+
+Widget _wrapInOffstage(Widget child, bool offstage) {
+  return Offstage(
+    offstage: offstage,
     child: child,
   );
 }
