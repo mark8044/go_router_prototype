@@ -18,10 +18,12 @@ import 'typedefs.dart';
 /// This route has the same behavior as GoRoute in go_router >=3.0.0.
 class StackedRoute extends RouteBase {
   final StackedRouteBuilder builder;
+  final bool preserveState;
 
   StackedRoute({
     required String path,
     required this.builder,
+    this.preserveState = false,
     Redirect? redirect,
     List<RouteBase> routes = const [],
   }) : super(
