@@ -94,7 +94,7 @@ _RecursiveBuildResult _buildShellRecursive(
 }
 
 _RecursiveBuildResult _buildSwitcherChild(int i, RouteMatch routeMatch,
-    BuildContext context, VoidCallback pop, r.SwitcherRoute parent) {
+    BuildContext context, VoidCallback pop, r.StackedRoute parent) {
     
     
   late final r.RouteBase? child;
